@@ -5,7 +5,9 @@ date:   2017-11-14 08:50:02 +0545
 categories: cipher cryptography
 ---
 ROT13 is a simple substitution cesar cipher. In this cipher method, the alphabetical characters are only encoded. 26 characters in the englsh alphabet are rotated by 13 places to create cipher-text. Both encoding and decoding employ the same algorithm. This substitution cipher has very small cryptographic value. 
+
 _General ROT13 substitution Table:_
+
 **A <--> N**
 **B <--> O**
 **C <--> P**
@@ -19,6 +21,7 @@ _General ROT13 substitution Table:_
 **K <--> X**
 **L <--> Y**
 **M <--> Z**
+
 #### Linux Command:
 	tr a-zA-Z n-za-mN-ZA-M //translate command 
 
