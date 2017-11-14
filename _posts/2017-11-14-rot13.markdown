@@ -4,21 +4,29 @@ title:  "ROT13 Cipher!"
 date:   2017-11-14 08:50:02 +0545
 categories: cipher cryptography
 ---
-Today I read a lot about ceasar ciphering in [github pages][github-pages]. It was quite strenuous taking me about 5 hours to configure it and make it working fine. Merging conflicts and such to make this site work was quite frustating as I had already created a repository for the github pages online. Thanks to my binge learning. I had started from a edX course by PennX about [Data Structures and Software Design][edx-link], then went to [Big-O notation][bigo-link], then to [Markdown][markdown-link], then to [Github pages][github-pages] finally landing to [Jekyll][jekyll-link] built on ruby.  But it was worth it. I hope so.
+ROT13 is a simple substitution cesar cipher. In this cipher method, the alphabetical characters are only encoded. 26 characters in the englsh alphabet are rotated by 13 places to create cipher-text. Both encoding and decoding employ the same algorithm. This substitution cipher has very small cryptographic value. 
+_General ROT13 substitution Table:_
+**A <--> N**
+**B <--> O**
+**C <--> P**
+**D <--> Q**
+**E <--> R**
+**F <--> S**
+**G <--> T**
+**H <--> U**
+**I <--> V**
+**J <--> W**
+**K <--> X**
+**L <--> Y**
+**M <--> Z**
+#### Linux Command:
+	tr a-zA-Z n-za-mN-ZA-M //translate command 
 
 #### Links I  followed:
-1. [Data Structures and Software Design by PennX][edx-link]
-2. [Big-O Notation][bigo-link]
-3. [Markdown][markdown-link]
-4. [Github pages][github-pages]
-5. [Jekyll][jekyll-link]
-6. [Jekyll-docs][jekyll-docs]
+1. [ROT13 in Wikipedia][rot13-link]
+2. [Translate Command][tr-link]
 
 > "Just crazy."
 
-[jekyll-docs]: https://jekyllrb.com/docs/home
-[edx-link]: https://www.edx.org/course/data-structures-software-design-pennx-sd2x
-[bigo-link]: https://www.interviewcake.com/article/java/big-o-notation-time-and-space-complexity
-[markdown-link]: https://daringfireball.net/projects/markdown/
-[github-pages]: https://pages.github.com/
-[jekyll-link]: https://jekyllrb.com
+[rot13-link]: https://en.m.wikipedia.org/wiki/ROT13
+[tr-link]: http://man7.org/linux/man-pages/man1/tr.1.html 
