@@ -7,7 +7,7 @@ var btn = document.getElementById("btn");
 
 var getQuote = function(){
         var req = new XMLHttpRequest();
-        req.open('GET','https://keer4n.github.io/popular.json');
+        req.open('GET','https://keer4n.github.io/assets/popular.json');
         req.onload = function() {
             //parsing the json file as an javascript object notation
             var data = JSON.parse(req.responseText);
