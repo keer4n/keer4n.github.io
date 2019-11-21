@@ -2,7 +2,6 @@ title: "keer4n.blog"
 name: "Kiran's blog"
 author: Kiran Gurung 
 twitter_username: keer4n 
-baseurl: ""
 description: Document my learning notes.
 profile_url: "http://github.com/keer4n"
 theme: jekyll-theme-primer
