@@ -18,16 +18,16 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: "keer4n" 
+title: "keer4n.github.io" 
 email: "keer4n@pm.me"
 description: >- # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
   Google search results) and in your feed.xml site description.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+url: "https://keer4n.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+#twitter_username: jekyllrb
+#github_username:  jekyll
 
 #jekyll theme console settings
 header_pages:
@@ -41,7 +41,8 @@ listen_for_clients_preferred_style: true
 footer: 'Made with <a href="github.com/b2a3e8/jekyll-theme-console">console</a> theme.'
 
 # Build settings
-theme: jekyll-theme-console 
+#theme: jekyll-theme-console 
+remote_theme: b2a3e8/jekyll-theme-console
 plugins:
   - jekyll-feed
 
