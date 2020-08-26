@@ -3,7 +3,7 @@ layout: post
 title: cheatsheets
 date: 2020-08-15 22:45 -0600
 ---
-## [Cheatsheet](Cheatsheet)
+## Cheatsheet
 
 ### Browsers:
     - Next Tab -> Ctrl + Tab
