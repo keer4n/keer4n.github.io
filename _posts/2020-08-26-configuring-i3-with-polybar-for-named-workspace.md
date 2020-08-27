@@ -21,7 +21,7 @@ i3 4.18.1
 
 i3 userguide[^3] says that workspaces can be named by having following configuration. Configuration file for i3 is generally located at `~/.config/i3/config`
 
-```bash
+```sh
     bindsym $mod+1 workspace 1: name_of_workspace_1
     bindsym $mod+2 workspace 2: name_of_workspace_2
 ```
@@ -30,11 +30,11 @@ i3 userguide[^3] says that workspaces can be named by having following configura
 
 However, doing so will not be reflected to polybar by default. To view workspace name in the bar, further configuration of polybar module for i3 is required, which can be found at `~/.config/polybar/modules.ini`. 
 
-```bash
+```sh
     [module/i3]
     label-focused = %index% %name% 
 ```
-Basically, the `%name` placeholder which is mapped to the workspace name should be added to `label-*` variable which only has `%index%` fixing our problem.
+Basically, the `%name%` placeholder which is mapped to the workspace name should be added to `label-*` variable which only has `%index%` fixing our problem.
 
 These workspaces can be further organized using assignments[^4] to force certain applications to be opened in specific workspace.
 
