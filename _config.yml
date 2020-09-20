@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: "keer4n.github.io" 
+title: "Kiran's Personal Site" 
 email: "keer4n@pm.me"
 description: >- # this means to ignore newlines until "baseurl:"
   Write an awesome description for your new site here. You can edit this
@@ -42,7 +42,7 @@ style: dark # dark (default), light or hacker
 listen_for_clients_preferred_style: true
 
 footer: 'Made with <a href="https://github.com/keer4n/jekyll-theme-console">console</a> theme.'
-footer_left: '<a href="https://github.com/keer4n/">:octocat:</a>'
+footer_left: '<a href="https://github.com/keer4n/">~</a>'
 
 # Build settings
 #theme: jekyll-theme-console 
