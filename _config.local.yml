@@ -45,8 +45,8 @@ footer: 'Made with <a href="https://github.com/keer4n/jekyll-theme-console">cons
 footer_left: '<a href="https://github.com/keer4n/">:octocat:</a>'
 
 # Build settings
-#theme: jekyll-theme-console 
-remote_theme: keer4n/jekyll-theme-console
+theme: jekyll-theme-console # setting for local
+#remote_theme: keer4n/jekyll-theme-console
 plugins:
   - jekyll-feed
 
