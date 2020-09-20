@@ -17,6 +17,11 @@ Some vim tricks/tips that I keep forgetting:
    `dab` for deleting a block of text. eg. (.....)
    `dib` for deleting inner block of text.
    
+4. ### Writing files with sudo when forgot to start with sudo:
+   w !sudo tee %
+   
 [^1]: [Vim 101: Efficient HTML Editing with Text Objects](https://medium.com/usevim/vim-101-efficient-html-editing-with-text-objects-1571734718e3)
 [^2]: [Code Yarns - How to autocomplete path in Vim insert mode](https://codeyarns.github.io/tech/2016-10-06-how-to-autocomplete-path-in-vim-insert-mode.html)
 [^3]: [Stack Overflow](https://stackoverflow.com/questions/405415/can-you-grab-or-delete-between-parentheses-in-vi-vim)
+
+[^4]: [write with sudo trick](https://stackoverflow.com/questions/2600783/how-does-the-vim-write-with-sudo-trick-work)

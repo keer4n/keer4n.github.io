@@ -32,9 +32,11 @@ url: "https://keer4n.github.io" # the base hostname & protocol for your site, e.
 #jekyll theme console settings
 header_pages:
   - index.markdown
+  - ref-vision.md
   - about.markdown
   - resume.md
   - contact.md
+
 
 style: dark # dark (default), light or hacker
 listen_for_clients_preferred_style: true
