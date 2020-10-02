@@ -16,7 +16,9 @@ be used.
 
 For arch linux, you can install the tool from AUR with `yay` with:
 
+```sh
     $ yay -S bfg
+```
     
 First, start with deleting the unwanted files and commiting to remote as BFG won't 
 modify your latest commit to delete those files. Once the files are deleted, the 
@@ -24,22 +26,30 @@ git history can be cleaned.
 
 Next, clone the git database (.git folder) for your repo using:
     
+```sh
     $ git clone --mirror git@github.com:username/some-unclean-repo.git
-    
+```
+
 Now you can run BFG-specific commands to clean your repo.
 To delete a file:
 
+```sh
     $ bfg --delete-files file_name some-unclean-repo.git
-    
+```    
+
 To delete a folder:
 
+```sh
     $ bfg --delete-folders folder_name some-unclean-repo.git
-    
+```
+
 Then, go into your folder and clean unwanted data using:
 
+```sh
     $ cd some-unclean-repo.git
     $ git reflog expire --expire=now --all && git gc --prune=now --aggressive
-    
+```
+
 Now, you can push it to remote to have an updated clean history using `git push` and it is recommended
 to reclone the repo for future use to prevent unwarranted pushing of dirty history.
 
