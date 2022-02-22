@@ -1,5 +1,12 @@
-_site
-.sass-cache
-.jekyll-cache
-.jekyll-metadata
 .vendor
+.jekyll-cache
+.DS_Store
+node_modules
+/build
+/.svelte-kit
+/package
+.env
+.env.*
+!.env.example
+.vercel
+.output
