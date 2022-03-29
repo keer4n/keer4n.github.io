@@ -50,8 +50,8 @@ footer_left: '<a href="https://github.com/keer4n/">~</a>'
 remote_theme: keer4n/jekyll-theme-console
 plugins:
   - jekyll-feed
-  - jekyll-last-modified-at
   - jekyll-remote-theme
+  - jekyll-last-modified-at
 
 jekyll_compose:
   auto_open: true
@@ -74,7 +74,3 @@ jekyll_compose:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
-
-# Optional. The default date format
-last-modified-at:
-  date-format: '%Y-%m-%d'
