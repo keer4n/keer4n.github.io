@@ -1,3 +1,8 @@
+To create new post, using `jekyll-compose`:
+```shell
+    jekyll post "My New Post"
+```
+
 To run locally:
 ```shell
     bundle exec jekyll serve -c _config.local.yml
