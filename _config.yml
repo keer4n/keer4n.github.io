@@ -74,3 +74,6 @@ jekyll_compose:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+last-modified-at:
+  date-format: '%Y-%m-%d'
