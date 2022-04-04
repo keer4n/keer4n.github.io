@@ -18,7 +18,9 @@ Some vim tricks/tips that I keep forgetting:
    `dib` for deleting inner block of text.
    
 4. ### Writing files with sudo when forgot to start with sudo:
-   w !sudo tee %
+```shell
+:w !sudo tee %
+```
    
 [^1]: [Vim 101: Efficient HTML Editing with Text Objects](https://medium.com/usevim/vim-101-efficient-html-editing-with-text-objects-1571734718e3)
 [^2]: [Code Yarns - How to autocomplete path in Vim insert mode](https://codeyarns.github.io/tech/2016-10-06-how-to-autocomplete-path-in-vim-insert-mode.html)
