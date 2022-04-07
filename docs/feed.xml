@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://keer4n.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://keer4n.github.io/" rel="alternate" type="text/html" /><updated>2022-04-06T20:19:59-06:00</updated><id>https://keer4n.github.io/feed.xml</id><title type="html">Kiran’s Personal Site</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Using BFG to clean out unwanted/sensitive files</title><link href="https://keer4n.github.io/2020/09/09/using-bfg-to-clean-out-unwanted-sensitive-files.html" rel="alternate" type="text/html" title="Using BFG to clean out unwanted/sensitive files" /><published>2020-09-09T15:27:00-06:00</published><updated>2020-10-02T10:45:02-06:00</updated><id>https://keer4n.github.io/2020/09/09/using-bfg-to-clean-out-unwanted-sensitive-files</id><content type="html" xml:base="https://keer4n.github.io/2020/09/09/using-bfg-to-clean-out-unwanted-sensitive-files.html"><![CDATA[<h2 id="using-bfg-to-clean-out-unwantedsensitive-files">Using BFG to clean out unwanted/sensitive files</h2>
+
+<p>The goal is to clean a git repository with unwanted/sensitive files. For eg. Some 
+key/password files were uploaded to the remote git repo. Then, git will preserve their
+history regardless of if you delete it later (that’s what git is for). To completely 
+eradicate it from your git history quickly and painlessly, BFG repo-cleaner<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> can
+be used.</p>
+
+<p>For arch linux, you can install the tool from AUR with <code class="language-plaintext highlighter-rouge">yay</code> with:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>yay <span class="nt">-S</span> bfg
+</code></pre></div></div>
+
+<p>First, start with deleting the unwanted files and commiting to remote as BFG won’t 
+modify your latest commit to delete those files. Once the files are deleted, the 
+git history can be cleaned.</p>
+
+<p>Next, clone the git database (.git folder) for your repo using:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>git clone <span class="nt">--mirror</span> git@github.com:username/some-unclean-repo.git
+</code></pre></div></div>
+
+<p>Now you can run BFG-specific commands to clean your repo.
+To delete a file:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>bfg <span class="nt">--delete-files</span> file_name some-unclean-repo.git
+</code></pre></div></div>
+
+<p>To delete a folder:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>bfg <span class="nt">--delete-folders</span> folder_name some-unclean-repo.git
+</code></pre></div></div>
+
+<p>Then, go into your folder and clean unwanted data using:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span><span class="nb">cd </span>some-unclean-repo.git
+    <span class="nv">$ </span>git reflog expire <span class="nt">--expire</span><span class="o">=</span>now <span class="nt">--all</span> <span class="o">&amp;&amp;</span> git gc <span class="nt">--prune</span><span class="o">=</span>now <span class="nt">--aggressive</span>
+</code></pre></div></div>
+
+<p>Now, you can push it to remote to have an updated clean history using <code class="language-plaintext highlighter-rouge">git push</code> and it is recommended
+to reclone the repo for future use to prevent unwarranted pushing of dirty history.</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://rtyley.github.io/bfg-repo-cleaner/">BFG Repo-Cleaner</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name></name></author><summary type="html"><![CDATA[Using BFG to clean out unwanted/sensitive files]]></summary></entry><entry><title type="html">Configuring notification daemon - dunst</title><link href="https://keer4n.github.io/2020/09/04/configuring-notification-daemon-dunst.html" rel="alternate" type="text/html" title="Configuring notification daemon - dunst" /><published>2020-09-04T15:02:00-06:00</published><updated>2020-09-07T10:56:26-06:00</updated><id>https://keer4n.github.io/2020/09/04/configuring-notification-daemon-dunst</id><content type="html" xml:base="https://keer4n.github.io/2020/09/04/configuring-notification-daemon-dunst.html"><![CDATA[<h2 id="configuring-notification-daemon---dunst">Configuring notification daemon - dunst</h2>
+
+<p>The goal is to configure <code class="language-plaintext highlighter-rouge">dunst</code> which describes itself as a lightweight notification daemon on i3-wm. You can get dunst from the community repository. Install it by:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c">#pacman -S dunst</span>
+</code></pre></div></div>
+<p>You should add it to the startup.</p>
+
+<p>For i3 you can add <code class="language-plaintext highlighter-rouge">exec_always dunst</code> to you config file (<code class="language-plaintext highlighter-rouge">~/.config/i3/config</code>).</p>
+
+<p>Next, a simple bash script where we will use the notification daemon to display a primitive ticking timer.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c">#!/bin/bash</span>
+  
+  <span class="nv">i</span><span class="o">=</span>0
+  <span class="nv">limit</span><span class="o">=</span><span class="nv">$1</span> 
+  <span class="k">while </span><span class="nb">true</span><span class="p">;</span> <span class="k">do
+    </span>notify-send <span class="nt">-h</span> int:value:<span class="nv">$i</span> Timer
+    <span class="nb">sleep </span>1
+    <span class="nv">i</span><span class="o">=</span><span class="nv">$[$i</span>+1]
+    <span class="k">if</span> <span class="o">[</span> <span class="nv">$i</span> <span class="nt">-eq</span> <span class="nv">$time</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+      </span><span class="nb">exit
+    </span><span class="k">fi
+  done</span>
+</code></pre></div></div>
+<p>What this script will do is invoke <code class="language-plaintext highlighter-rouge">notify-send</code> with a <code class="language-plaintext highlighter-rouge">hint</code> value to dunst which handles this as progress value using <code class="language-plaintext highlighter-rouge">%p</code> or <code class="language-plaintext highlighter-rouge">%n</code> format specifier. To enable this, you need to change some configuration options in dunstrc file (<code class="language-plaintext highlighter-rouge">~/.config/dunst/dunstrc</code>).</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  format <span class="o">=</span> <span class="s2">"&lt;b&gt;%s %n&lt;/b&gt;</span><span class="se">\n</span><span class="s2">%b"</span>
+  
+  stack_duplicates <span class="o">=</span> <span class="nb">yes
+  </span>hide_duplicate_count <span class="o">=</span> <span class="nb">yes</span>
+</code></pre></div></div>
+
+<h3 id="refs">Refs:</h3>
+
+<ol>
+  <li><a href="https://dunst-project.org/">Dunst project home</a></li>
+  <li><a href="https://superuser.com/questions/611538/is-there-a-way-to-display-a-countdown-or-stopwatch-timer-in-a-terminal">Way to display a countdown in a terminal</a></li>
+</ol>]]></content><author><name></name></author><summary type="html"><![CDATA[Configuring notification daemon - dunst]]></summary></entry><entry><title type="html">Configuring i3 with polybar for named workspace</title><link href="https://keer4n.github.io/2020/08/26/configuring-i3-with-polybar-for-named-workspace.html" rel="alternate" type="text/html" title="Configuring i3 with polybar for named workspace" /><published>2020-08-26T16:31:00-06:00</published><updated>2020-08-26T23:40:59-06:00</updated><id>https://keer4n.github.io/2020/08/26/configuring-i3-with-polybar-for-named-workspace</id><content type="html" xml:base="https://keer4n.github.io/2020/08/26/configuring-i3-with-polybar-for-named-workspace.html"><![CDATA[<h2 id="configuring-i3wm-with-polybar-for-named-workspace">Configuring i3wm<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> with polybar<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup> for named workspace</h2>
+
+<p>Naming workspaces in i3wm helps when you have too many open applications everywhere. 
+Polybar, which is one of the popular status bars for i3wm, does not display the name of the workspace by default.</p>
+
+<p>The goal is to configure polybar to properly display names of workspaces which are defined in i3 configuration files.</p>
+
+<h3 id="environment">Environment:</h3>
+
+<p>Polybar 3.4.3
+i3 4.18.1</p>
+
+<p>i3 userguide<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> says that workspaces can be named by having following configuration. Configuration file for i3 is generally located at <code class="language-plaintext highlighter-rouge">~/.config/i3/config</code></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    bindsym <span class="nv">$mod</span>+1 workspace 1: name_of_workspace_1
+    bindsym <span class="nv">$mod</span>+2 workspace 2: name_of_workspace_2
+</code></pre></div></div>
+
+<p>However, doing so will not be reflected to polybar by default. To view workspace name in the bar, further configuration of polybar module for i3 is required, which can be found at <code class="language-plaintext highlighter-rouge">~/.config/polybar/modules.ini</code>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="o">[</span>module/i3]
+    label-focused <span class="o">=</span> %index% %name% 
+</code></pre></div></div>
+<p>Basically, the <code class="language-plaintext highlighter-rouge">%name%</code> placeholder which is mapped to the workspace name should be added to <code class="language-plaintext highlighter-rouge">label-*</code> variable which only has <code class="language-plaintext highlighter-rouge">%index%</code> fixing our problem.</p>
+
+<p>These workspaces can be further organized using assignments<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup> to force certain applications to be opened in specific workspace.</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://i3wm.org">i3wm</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p><a href="https://github.com/polybar/polybar">polybar</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p><a href="https://i3wm.org/docs/userguide.html#_named_workspaces">i3 userguide</a> <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+      <p><a href="https://i3wm.org/docs/userguide.html#assign_workspace">i3 config - assignment</a> <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name></name></author><summary type="html"><![CDATA[Configuring i3wm1 with polybar2 for named workspace i3wm &#8617; polybar &#8617;]]></summary></entry><entry><title type="html">github-cli</title><link href="https://keer4n.github.io/2020/08/16/github-cli.html" rel="alternate" type="text/html" title="github-cli" /><published>2020-08-16T08:45:00-06:00</published><updated>2020-08-26T17:20:39-06:00</updated><id>https://keer4n.github.io/2020/08/16/github-cli</id><content type="html" xml:base="https://keer4n.github.io/2020/08/16/github-cli.html"><![CDATA[<p>## github-cli<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p>
+
+<p>official cli from github currently under active development.</p>
+
+<p>### Setup</p>
+
+<ul>
+  <li>install using <code class="language-plaintext highlighter-rouge">pacman -S github-cli</code></li>
+</ul>
+
+<p>To create a public repo, use:</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>gh repo create repo_name <span class="nt">--public</span>
+</code></pre></div></div>
+
+<p>### Usage</p>
+
+<ul>
+  <li>gh pr [status, list, view, checkout, create]</li>
+  <li>gh issue [status, list, view, create]</li>
+  <li>gh repo [view, create, clone, fork]</li>
+  <li>gh config [get, set]</li>
+  <li>gh help</li>
+</ul>
+
+<p>Documentation<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup></p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://github.com/cli/cli">Repo</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p><a href="https://cli.github.com/manual/">Manual</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name></name></author><summary type="html"><![CDATA[## github-cli1 official cli from github currently under active development. ### Setup install using pacman -S github-cli To create a public repo, use: $ gh repo create repo_name --public ### Usage gh pr [status, list, view, checkout, create] gh issue [status, list, view, create] gh repo [view, create, clone, fork] gh config [get, set] gh help Documentation2 Repo &#8617; Manual &#8617;]]></summary></entry><entry><title type="html">cheatsheets</title><link href="https://keer4n.github.io/2020/08/15/cheatsheets.html" rel="alternate" type="text/html" title="cheatsheets" /><published>2020-08-15T22:45:00-06:00</published><updated>2022-04-03T23:34:46-06:00</updated><id>https://keer4n.github.io/2020/08/15/cheatsheets</id><content type="html" xml:base="https://keer4n.github.io/2020/08/15/cheatsheets.html"><![CDATA[<h2 id="cheatsheet">Cheatsheet</h2>
+
+<h3 id="browsers">Browsers:</h3>
+<ul>
+  <li>Next Tab -&gt; Ctrl + Tab</li>
+  <li>Previous Tab -&gt; Ctrl + Shift + Tab</li>
+</ul>
+
+<h3 id="linux">Linux:</h3>
+<ul>
+  <li>Power supply, battery status -&gt; /sys/class/power_supply/BAT0/</li>
+  <li>Regularly updating archlinux is recommended and updating may occasionally fail during integrity check. This is due to revoked or failed keys. You can update the keys using<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>:</li>
+</ul>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pacman <span class="nt">-Sy</span> archlinux-keyring
+</code></pre></div></div>
+
+<h3 id="github">Github:</h3>
+<ul>
+  <li>To get the permalink for a commit/file on github, press <code class="language-plaintext highlighter-rouge">y</code><sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>.</li>
+</ul>
+
+<h3 id="vs-code">VS Code:</h3>
+<ul>
+  <li>zenmode: <code class="language-plaintext highlighter-rouge">Ctrl + K,Z</code> or  <code class="language-plaintext highlighter-rouge">Cmd + K,Z</code></li>
+</ul>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://wiki.archlinux.org/title/Pacman/Package_signing">pacman/Package signing - ArchWiki</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p><a href="https://docs.github.com/en/repositories/working-with-files/using-files/getting-permanent-links-to-files">Getting permanent links to files - GitHub Docs</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name></name></author><summary type="html"><![CDATA[Cheatsheet]]></summary></entry><entry><title type="html">Vim reminders</title><link href="https://keer4n.github.io/2020/07/30/vim-reminders.html" rel="alternate" type="text/html" title="Vim reminders" /><published>2020-07-30T03:05:00-06:00</published><updated>2022-04-04T00:00:34-06:00</updated><id>https://keer4n.github.io/2020/07/30/vim-reminders</id><content type="html" xml:base="https://keer4n.github.io/2020/07/30/vim-reminders.html"><![CDATA[<h2 id="vim-reminders">Vim reminders</h2>
+
+<p>Some vim tricks/tips that I keep forgetting:</p>
+
+<ol>
+  <li>
+    <h3 id="deleting-between-tags">Deleting between tags<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>:</h3>
+    <p><code class="language-plaintext highlighter-rouge">dat</code> for deleting a tag and its inner html
+<code class="language-plaintext highlighter-rouge">dit</code> for deleting the inner html only</p>
+  </li>
+  <li>
+    <h3 id="file-name-auto-completion">File name auto completion<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>:</h3>
+    <p><code class="language-plaintext highlighter-rouge">C-x C-f</code> to access a scrollable list of files in current directory. Use <code class="language-plaintext highlighter-rouge">C-n</code> for next and <code class="language-plaintext highlighter-rouge">C-f</code> for previous to scroll the list.</p>
+  </li>
+  <li>
+    <h3 id="deleting-blocks-of-text-inside-parenthesis-see-help-text-objects">Deleting blocks of text inside parenthesis<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> (see <code class="language-plaintext highlighter-rouge">help text-objects</code>):</h3>
+    <p><code class="language-plaintext highlighter-rouge">dab</code> for deleting a block of text. eg. (…..)
+<code class="language-plaintext highlighter-rouge">dib</code> for deleting inner block of text.</p>
+  </li>
+  <li>
+    <h3 id="writing-files-with-sudo-when-forgot-to-start-with-sudo">Writing files with sudo when forgot to start with sudo:</h3>
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:w <span class="o">!</span><span class="nb">sudo tee</span> %
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://medium.com/usevim/vim-101-efficient-html-editing-with-text-objects-1571734718e3">Vim 101: Efficient HTML Editing with Text Objects</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p><a href="https://codeyarns.github.io/tech/2016-10-06-how-to-autocomplete-path-in-vim-insert-mode.html">Code Yarns - How to autocomplete path in Vim insert mode</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p><a href="https://stackoverflow.com/questions/405415/can-you-grab-or-delete-between-parentheses-in-vi-vim">Stack Overflow</a> <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name></name></author><summary type="html"><![CDATA[Vim reminders]]></summary></entry><entry><title type="html">jekyll-compose</title><link href="https://keer4n.github.io/2020/07/30/jekyll-compose.html" rel="alternate" type="text/html" title="jekyll-compose" /><published>2020-07-30T02:47:00-06:00</published><updated>2020-07-30T03:34:41-06:00</updated><id>https://keer4n.github.io/2020/07/30/jekyll-compose</id><content type="html" xml:base="https://keer4n.github.io/2020/07/30/jekyll-compose.html"><![CDATA[<h2 id="jekyllcompose">Jekyll::Compose<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></h2>
+
+<p>There exists a gem for jekyll called <code class="language-plaintext highlighter-rouge">jekyll-compose</code> which lets you create posts and publish them quickly without having to create the posts by hand.</p>
+
+<p>To use this gem, add the following line to your <code class="language-plaintext highlighter-rouge">Gemfile</code>.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="s">gem 'jekyll-compose', group</span><span class="err">:</span> <span class="pi">[:</span><span class="nv">jekyll_plugins</span><span class="pi">]</span>
+</code></pre></div></div>
+<p>Then, you can easily create new posts using:</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>bundle <span class="nb">exec </span>jekyll post <span class="s2">"my post"</span>
+</code></pre></div></div>
+<p>By default, this will only create the markdown document for the post. To enable auto opening of the file in your editor, add the following section to your jekyll config file (<code class="language-plaintext highlighter-rouge">_config.yml</code>).</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">jekyll_compose</span><span class="pi">:</span>
+      <span class="na">auto_open</span><span class="pi">:</span> <span class="no">true</span>
+</code></pre></div></div>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://github.com/jekyll/jekyll-compose">jekyll-compose</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name></name></author><summary type="html"><![CDATA[Jekyll::Compose1 jekyll-compose &#8617;]]></summary></entry><entry><title type="html">Contact forms</title><link href="https://keer4n.github.io/2020/07/28/creaticontact-forms.html" rel="alternate" type="text/html" title="Contact forms" /><published>2020-07-28T18:11:00-06:00</published><updated>2020-07-30T03:34:41-06:00</updated><id>https://keer4n.github.io/2020/07/28/creaticontact-forms</id><content type="html" xml:base="https://keer4n.github.io/2020/07/28/creaticontact-forms.html"><![CDATA[<h2 id="creating-contact-forms-for-static-pages">Creating Contact forms for static pages</h2>
+
+<p>The goal is to create a contact form for a static page which upon submission will invoke the default email client with contents populated.</p>
+
+<p>This can be accomplish using <code class="language-plaintext highlighter-rouge">Javascript</code> and the <code class="language-plaintext highlighter-rouge">mailto</code> hyperlinks.</p>
+
+<p><code class="language-plaintext highlighter-rouge">mailto</code> link allows emails to be sent via default email client of the user. A basic <code class="language-plaintext highlighter-rouge">mailto</code> link is shown below.</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"mailto:me@mysite.com"</span><span class="nt">&gt;</span> Email me <span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+<p>On clicking the link, a user’s default email client is invoked with to-address populated.
+Furthermore, since it is a link, parameters can be attached to specify other components of an email like subject, body, cc, bcc, etc. 
+For a simple static sites like those created with jekyll, this type of contact forms can be used.</p>
+
+<p>A simple form as shown below can be used to get information from  a user.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;form&gt;</span> 
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"name"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">id=</span><span class="s">"email"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;textarea</span> <span class="na">rows=</span><span class="s">"5"</span> <span class="na">id=</span><span class="s">"message"</span> <span class="nt">&gt;&lt;/textarea&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">onclick=</span><span class="s">"mail()"</span> <span class="na">value=</span><span class="s">"[ submit ]"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>This form will have fields for <em>name</em>, <em>email</em> and <em>message</em>. Special care needs to be taken with the <em>message</em> field if we are to preseve the text formatting. This is required because we will use <code class="language-plaintext highlighter-rouge">Javascript</code> for extracting the field values to create the <code class="language-plaintext highlighter-rouge">mailto</code> link and values extracted from these fields are not encoded for URLs; meaning spaces, newline characters, etc. are present which cannot be included in a URL. URL Encoding<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> can be done with the <code class="language-plaintext highlighter-rouge">encodeURIComponent()</code> function available in <code class="language-plaintext highlighter-rouge">Javascript</code>.</p>
+
+<p>Following is a <code class="language-plaintext highlighter-rouge">Javascript</code> function that can be called for the <code class="language-plaintext highlighter-rouge">onclick</code> attribute of the submit button for previous form.</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">function</span> <span class="nx">mail</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">email</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">a</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">email</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">mailto:me@mysite.com?subject=</span><span class="dl">"</span> 
+      <span class="o">+</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">).</span><span class="nx">value</span> 
+      <span class="o">+</span> <span class="dl">"</span><span class="s2">(</span><span class="dl">"</span> <span class="o">+</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">email</span><span class="dl">"</span><span class="p">).</span><span class="nx">value</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">)</span><span class="dl">"</span>
+      <span class="o">+</span> <span class="dl">"</span><span class="s2">&amp;body=</span><span class="dl">"</span>
+      <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">message</span><span class="dl">"</span><span class="p">).</span><span class="nx">value</span><span class="p">);</span> 
+    <span class="nx">email</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p>Here, first an anchor (link) element is created, then its <code class="language-plaintext highlighter-rouge">href</code> attribute is set to a <code class="language-plaintext highlighter-rouge">mailto</code> link with specified to-address, subject &amp; body parameters extracted from the form (notice the call to <code class="language-plaintext highlighter-rouge">encodeURIComponent</code> for the message body) and finally click event is simulated for the element.</p>
+
+<p>This concludes the writeup. The contact form for this site is created using the same methods which can be viewed in <a href="https://github.com/keer4n/keer4n.github.io">github</a> or by inspecting the <a href="/contact">contact page</a> source.</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://www.w3schools.com/tags/ref_urlencode.ASP">HTML URL Encoding Reference</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name></name></author><summary type="html"><![CDATA[Creating Contact forms for static pages]]></summary></entry><entry><title type="html">Java Basics</title><link href="https://keer4n.github.io/2020/07/15/java-basics.html" rel="alternate" type="text/html" title="Java Basics" /><published>2020-07-15T12:54:00-06:00</published><updated>2020-07-23T14:09:20-06:00</updated><id>https://keer4n.github.io/2020/07/15/java-basics</id><content type="html" xml:base="https://keer4n.github.io/2020/07/15/java-basics.html"><![CDATA[<blockquote>
+  <p>Basics</p>
+</blockquote>
+
+<!--more-->
+<ol>
+  <li>Three types of variables:
+    <ul>
+      <li>Class variables/Static variables - available via class, without the need to create on object</li>
+      <li>Instance variables - variables denoting the state of class</li>
+      <li>Local variable - variables inside the methods</li>
+    </ul>
+  </li>
+  <li>
+    <p>Access modifiers/specifiers:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th> </th>
+          <th>Class</th>
+          <th>Package</th>
+          <th>Subclass (same pkg)</th>
+          <th>Subclass (diff pkg)</th>
+          <th>World</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>public</td>
+          <td>+</td>
+          <td>+</td>
+          <td>+</td>
+          <td>+</td>
+          <td>+</td>
+        </tr>
+        <tr>
+          <td>protected</td>
+          <td>+</td>
+          <td>+</td>
+          <td>+</td>
+          <td>+</td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>no modifier (default)</td>
+          <td>+</td>
+          <td>+</td>
+          <td>+</td>
+          <td> </td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td>private</td>
+          <td>+</td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>StringBuffer are thread-safe version of StringBuilder.</li>
+  <li>String literals live in string constant pool whereas string objects live in heap.</li>
+  <li>AWS VPC allows you to configure/setup a networking environment among different EC2 instances. Limited to a region but can be multi-AZ.</li>
+</ol>]]></content><author><name></name></author><summary type="html"><![CDATA[Basics]]></summary></entry><entry><title type="html">Links</title><link href="https://keer4n.github.io/2019/11/14/links.html" rel="alternate" type="text/html" title="Links" /><published>2019-11-14T13:00:00-07:00</published><updated>2022-04-06T09:38:46-06:00</updated><id>https://keer4n.github.io/2019/11/14/links</id><content type="html" xml:base="https://keer4n.github.io/2019/11/14/links.html"><![CDATA[<!--more-->
+<h2 id="links">Links</h2>
+
+<p>Assortment of links:</p>
+
+<h3 id="cryptography">cryptography</h3>
+
+<ul>
+  <li><a href="https://www.github.com/pFarb/awesome-crypto-papers">Awesome Crypto Papers</a> great papers on cryptography.</li>
+  <li><a href="https://www.github.com/sobolevn/awesome-cryptography">Awesome Cryptography</a> another cryptography collection.</li>
+</ul>
+
+<h3 id="haskell">haskell</h3>
+
+<ul>
+  <li><a href="https://github.com/raviksharma/bartosz-basics-of-haskell">exercises</a> &amp; <a href="https://www.schoolofhaskell.com/user/bartosz/basics-of-haskell">lessons</a>
+    <h3 id="python">python</h3>
+  </li>
+  <li><a href="https://book.pythontips.com/">python tips</a></li>
+</ul>
+
+<h3 id="books">books</h3>
+
+<ul>
+  <li><a href="https://runestone.academy/runestone/books/">interactive programming books</a></li>
+</ul>
+
+<h3 id="security">security</h3>
+
+<ul>
+  <li><a href="https://github.com/sbilly/awesome-security">Awesome Security</a></li>
+  <li><a href="https://github.com/Hack-with-Github/Awesome-Hacking">Awesome Hacking</a></li>
+  <li><a href="https://www.noobsec.net">noobsec</a></li>
+  <li><a href="https://cheatsheetseries.owasp.orgA/">OWASP Cheatsheet Series</a></li>
+</ul>
+
+<h3 id="databases">databases</h3>
+
+<ul>
+  <li><a href="https://use-the-index-luke.com/">Use the index luke</a></li>
+</ul>
+
+<h3 id="blogs">blogs</h3>
+<ul>
+  <li><a href="https://neilkakkar.com/blog/">Neil Kakkar</a></li>
+  <li><a href="https://www.gwern.net/">Gwern</a></li>
+</ul>
+
+<h3 id="else">else</h3>
+<ul>
+  <li><a href="https://learnxinyminutes.com/">Learn X in Y minutes</a></li>
+  <li><a href="https://www.atlassian.com/git/tutorials/dotfiles">How to store dot files</a></li>
+</ul>]]></content><author><name></name></author><category term="cryptography," /><category term="hyperlinks," /><category term="collection" /><summary type="html"><![CDATA[Links]]></summary></entry></feed>

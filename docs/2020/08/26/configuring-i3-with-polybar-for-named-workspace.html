@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Configuring i3 with polybar for named workspace</title><!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Configuring i3 with polybar for named workspace" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Configuring i3wm1 with polybar2 for named workspace i3wm &#8617; polybar &#8617;" />
+<meta property="og:description" content="Configuring i3wm1 with polybar2 for named workspace i3wm &#8617; polybar &#8617;" />
+<link rel="canonical" href="https://keer4n.github.io/2020/08/26/configuring-i3-with-polybar-for-named-workspace.html" />
+<meta property="og:url" content="https://keer4n.github.io/2020/08/26/configuring-i3-with-polybar-for-named-workspace.html" />
+<meta property="og:site_name" content="Kiran’s Personal Site" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-26T16:31:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Configuring i3 with polybar for named workspace" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-08-26T23:40:59-06:00","datePublished":"2020-08-26T16:31:00-06:00","description":"Configuring i3wm1 with polybar2 for named workspace i3wm &#8617; polybar &#8617;","headline":"Configuring i3 with polybar for named workspace","mainEntityOfPage":{"@type":"WebPage","@id":"https://keer4n.github.io/2020/08/26/configuring-i3-with-polybar-for-named-workspace.html"},"url":"https://keer4n.github.io/2020/08/26/configuring-i3-with-polybar-for-named-workspace.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" type="text/css" href="/assets/main.css"></head>
+<body>
+    <div class="container"><header>
+  <div class = "float-container">
+      <div class = "menu" style="flex-grow:1">
+        <form class = "search-bar" action="/search.html" method="get">
+         <input type="text" id="search-box" name="query" placeholder="search">
+         <input type="submit" value="" style="width:0%; float:left" tabindex="-1">
+        </form>
+      </div>
+       <div class="menu">
+          <ul><li><a href="/">/</a></li><li><a href="/demos">/demos</a></li><li><a href="/ref-vision">/ref-vision</a></li><li><a href="/about/">/about</a></li><li><a href="/resume">/resume</a></li><li><a href="/contact">/contact</a></li></ul>
+       </div>
+  </div>
+</header>
+
+
+<main>
+
+      <p dir="rtl">2020-08-26</p>
+
+<h2 id="configuring-i3wm-with-polybar-for-named-workspace">Configuring i3wm<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> with polybar<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup> for named workspace</h2>
+
+<p>Naming workspaces in i3wm helps when you have too many open applications everywhere. 
+Polybar, which is one of the popular status bars for i3wm, does not display the name of the workspace by default.</p>
+
+<p>The goal is to configure polybar to properly display names of workspaces which are defined in i3 configuration files.</p>
+
+<h3 id="environment">Environment:</h3>
+
+<p>Polybar 3.4.3
+i3 4.18.1</p>
+
+<p>i3 userguide<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> says that workspaces can be named by having following configuration. Configuration file for i3 is generally located at <code class="language-plaintext highlighter-rouge">~/.config/i3/config</code></p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    bindsym <span class="nv">$mod</span>+1 workspace 1: name_of_workspace_1
+    bindsym <span class="nv">$mod</span>+2 workspace 2: name_of_workspace_2
+</code></pre></div></div>
+
+<p>However, doing so will not be reflected to polybar by default. To view workspace name in the bar, further configuration of polybar module for i3 is required, which can be found at <code class="language-plaintext highlighter-rouge">~/.config/polybar/modules.ini</code>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="o">[</span>module/i3]
+    label-focused <span class="o">=</span> %index% %name% 
+</code></pre></div></div>
+<p>Basically, the <code class="language-plaintext highlighter-rouge">%name%</code> placeholder which is mapped to the workspace name should be added to <code class="language-plaintext highlighter-rouge">label-*</code> variable which only has <code class="language-plaintext highlighter-rouge">%index%</code> fixing our problem.</p>
+
+<p>These workspaces can be further organized using assignments<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup> to force certain applications to be opened in specific workspace.</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://i3wm.org">i3wm</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p><a href="https://github.com/polybar/polybar">polybar</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p><a href="https://i3wm.org/docs/userguide.html#_named_workspaces">i3 userguide</a> <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+      <p><a href="https://i3wm.org/docs/userguide.html#assign_workspace">i3 config - assignment</a> <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+
+    </main><footer>
+    <div class="float-container">
+        <div class = "float-child" style="text-align:left">
+            <a href="https://github.com/keer4n/">~</a>
+        </div>
+        <div class = "float-child">
+            Made with <a href="https://github.com/keer4n/jekyll-theme-console">console</a> theme.
+        </div>
+</footer>
+<script>
+  document.querySelectorAll('pre.highlight code').forEach(el => {
+    el.addEventListener('click', (e) => {
+        navigator.clipboard.writeText(e.target.innerText);
+        e.target.classList.add('copied');
+        setTimeout(() => {e.target.classList.remove('copied')}, 500);
+    });
+  });
+</script>
+</div>
+  </body>
+</html>

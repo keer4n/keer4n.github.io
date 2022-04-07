@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Contact forms</title><!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Contact forms" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Creating Contact forms for static pages" />
+<meta property="og:description" content="Creating Contact forms for static pages" />
+<link rel="canonical" href="https://keer4n.github.io/2020/07/28/creaticontact-forms.html" />
+<meta property="og:url" content="https://keer4n.github.io/2020/07/28/creaticontact-forms.html" />
+<meta property="og:site_name" content="Kiran’s Personal Site" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-28T18:11:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Contact forms" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-07-30T03:34:41-06:00","datePublished":"2020-07-28T18:11:00-06:00","description":"Creating Contact forms for static pages","headline":"Contact forms","mainEntityOfPage":{"@type":"WebPage","@id":"https://keer4n.github.io/2020/07/28/creaticontact-forms.html"},"url":"https://keer4n.github.io/2020/07/28/creaticontact-forms.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" type="text/css" href="/assets/main.css"></head>
+<body>
+    <div class="container"><header>
+  <div class = "float-container">
+      <div class = "menu" style="flex-grow:1">
+        <form class = "search-bar" action="/search.html" method="get">
+         <input type="text" id="search-box" name="query" placeholder="search">
+         <input type="submit" value="" style="width:0%; float:left" tabindex="-1">
+        </form>
+      </div>
+       <div class="menu">
+          <ul><li><a href="/">/</a></li><li><a href="/demos">/demos</a></li><li><a href="/ref-vision">/ref-vision</a></li><li><a href="/about/">/about</a></li><li><a href="/resume">/resume</a></li><li><a href="/contact">/contact</a></li></ul>
+       </div>
+  </div>
+</header>
+
+
+<main>
+
+      <p dir="rtl">2020-07-30</p>
+
+<h2 id="creating-contact-forms-for-static-pages">Creating Contact forms for static pages</h2>
+
+<p>The goal is to create a contact form for a static page which upon submission will invoke the default email client with contents populated.</p>
+
+<p>This can be accomplish using <code class="language-plaintext highlighter-rouge">Javascript</code> and the <code class="language-plaintext highlighter-rouge">mailto</code> hyperlinks.</p>
+
+<p><code class="language-plaintext highlighter-rouge">mailto</code> link allows emails to be sent via default email client of the user. A basic <code class="language-plaintext highlighter-rouge">mailto</code> link is shown below.</p>
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"mailto:me@mysite.com"</span><span class="nt">&gt;</span> Email me <span class="nt">&lt;/a&gt;</span>
+</code></pre></div></div>
+<p>On clicking the link, a user’s default email client is invoked with to-address populated.
+Furthermore, since it is a link, parameters can be attached to specify other components of an email like subject, body, cc, bcc, etc. 
+For a simple static sites like those created with jekyll, this type of contact forms can be used.</p>
+
+<p>A simple form as shown below can be used to get information from  a user.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;form&gt;</span> 
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"name"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">id=</span><span class="s">"email"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;textarea</span> <span class="na">rows=</span><span class="s">"5"</span> <span class="na">id=</span><span class="s">"message"</span> <span class="nt">&gt;&lt;/textarea&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">onclick=</span><span class="s">"mail()"</span> <span class="na">value=</span><span class="s">"[ submit ]"</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/form&gt;</span>
+</code></pre></div></div>
+
+<p>This form will have fields for <em>name</em>, <em>email</em> and <em>message</em>. Special care needs to be taken with the <em>message</em> field if we are to preseve the text formatting. This is required because we will use <code class="language-plaintext highlighter-rouge">Javascript</code> for extracting the field values to create the <code class="language-plaintext highlighter-rouge">mailto</code> link and values extracted from these fields are not encoded for URLs; meaning spaces, newline characters, etc. are present which cannot be included in a URL. URL Encoding<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> can be done with the <code class="language-plaintext highlighter-rouge">encodeURIComponent()</code> function available in <code class="language-plaintext highlighter-rouge">Javascript</code>.</p>
+
+<p>Following is a <code class="language-plaintext highlighter-rouge">Javascript</code> function that can be called for the <code class="language-plaintext highlighter-rouge">onclick</code> attribute of the submit button for previous form.</p>
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">function</span> <span class="nx">mail</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">email</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">a</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">email</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">mailto:me@mysite.com?subject=</span><span class="dl">"</span> 
+      <span class="o">+</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">name</span><span class="dl">"</span><span class="p">).</span><span class="nx">value</span> 
+      <span class="o">+</span> <span class="dl">"</span><span class="s2">(</span><span class="dl">"</span> <span class="o">+</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">email</span><span class="dl">"</span><span class="p">).</span><span class="nx">value</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">)</span><span class="dl">"</span>
+      <span class="o">+</span> <span class="dl">"</span><span class="s2">&amp;body=</span><span class="dl">"</span>
+      <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">message</span><span class="dl">"</span><span class="p">).</span><span class="nx">value</span><span class="p">);</span> 
+    <span class="nx">email</span><span class="p">.</span><span class="nx">click</span><span class="p">();</span>
+  <span class="p">}</span>
+</code></pre></div></div>
+<p>Here, first an anchor (link) element is created, then its <code class="language-plaintext highlighter-rouge">href</code> attribute is set to a <code class="language-plaintext highlighter-rouge">mailto</code> link with specified to-address, subject &amp; body parameters extracted from the form (notice the call to <code class="language-plaintext highlighter-rouge">encodeURIComponent</code> for the message body) and finally click event is simulated for the element.</p>
+
+<p>This concludes the writeup. The contact form for this site is created using the same methods which can be viewed in <a href="https://github.com/keer4n/keer4n.github.io">github</a> or by inspecting the <a href="/contact">contact page</a> source.</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://www.w3schools.com/tags/ref_urlencode.ASP">HTML URL Encoding Reference</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+
+    </main><footer>
+    <div class="float-container">
+        <div class = "float-child" style="text-align:left">
+            <a href="https://github.com/keer4n/">~</a>
+        </div>
+        <div class = "float-child">
+            Made with <a href="https://github.com/keer4n/jekyll-theme-console">console</a> theme.
+        </div>
+</footer>
+<script>
+  document.querySelectorAll('pre.highlight code').forEach(el => {
+    el.addEventListener('click', (e) => {
+        navigator.clipboard.writeText(e.target.innerText);
+        e.target.classList.add('copied');
+        setTimeout(() => {e.target.classList.remove('copied')}, 500);
+    });
+  });
+</script>
+</div>
+  </body>
+</html>
