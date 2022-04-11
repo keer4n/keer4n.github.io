@@ -265,7 +265,7 @@ div.highlight { position: relative; }
 
 pre.highlight { box-shadow: -1px 0 1px; }
 
-pre.highlight code { pointer-events: none; margin-left: 1em; }
+pre.highlight code { pointer-events: none; }
 
 pre.highlight code:after { content: "copy"; position: absolute; right: 0; top: 0; pointer-events: all; cursor: pointer; background-color: var(--background-color); }
 

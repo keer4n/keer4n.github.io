@@ -50,7 +50,7 @@ be used.</p>
 
 <p>For arch linux, you can install the tool from AUR with <code class="language-plaintext highlighter-rouge">yay</code> with:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>yay <span class="nt">-S</span> bfg
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">yay</span> <span class="nt">-S</span> <span class="nb">bfg</span>
 </code></pre></div></div>
 
 <p>First, start with deleting the unwanted files and commiting to remote as BFG won’t 
@@ -59,24 +59,24 @@ git history can be cleaned.</p>
 
 <p>Next, clone the git database (.git folder) for your repo using:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>git clone <span class="nt">--mirror</span> git@github.com:username/some-unclean-repo.git
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">git clone</span> <span class="nt">--mirror</span> <span class="nb">git</span>@github.com:username/some-unclean-repo.git
 </code></pre></div></div>
 
 <p>Now you can run BFG-specific commands to clean your repo.
 To delete a file:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>bfg <span class="nt">--delete-files</span> file_name some-unclean-repo.git
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">bfg</span> <span class="nt">--delete-files</span> file_name some-unclean-repo.git
 </code></pre></div></div>
 
 <p>To delete a folder:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>bfg <span class="nt">--delete-folders</span> folder_name some-unclean-repo.git
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">bfg</span> <span class="nt">--delete-folders</span> folder_name some-unclean-repo.git
 </code></pre></div></div>
 
 <p>Then, go into your folder and clean unwanted data using:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span><span class="nb">cd </span>some-unclean-repo.git
-    <span class="nv">$ </span>git reflog expire <span class="nt">--expire</span><span class="o">=</span>now <span class="nt">--all</span> <span class="o">&amp;&amp;</span> git gc <span class="nt">--prune</span><span class="o">=</span>now <span class="nt">--aggressive</span>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">cd </span>some-unclean-repo.git
+  <span class="nv">$ </span><span class="nb">git </span>reflog expire <span class="nt">--expire</span><span class="o">=</span>now <span class="nt">--all</span> <span class="o">&amp;&amp;</span> <span class="nb">git </span>gc <span class="nt">--prune</span><span class="o">=</span>now <span class="nt">--aggressive</span>
 </code></pre></div></div>
 
 <p>Now, you can push it to remote to have an updated clean history using <code class="language-plaintext highlighter-rouge">git push</code> and it is recommended

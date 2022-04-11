@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://keer4n.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://keer4n.github.io/" rel="alternate" type="text/html" /><updated>2022-04-06T20:19:59-06:00</updated><id>https://keer4n.github.io/feed.xml</id><title type="html">Kiran’s Personal Site</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Using BFG to clean out unwanted/sensitive files</title><link href="https://keer4n.github.io/2020/09/09/using-bfg-to-clean-out-unwanted-sensitive-files.html" rel="alternate" type="text/html" title="Using BFG to clean out unwanted/sensitive files" /><published>2020-09-09T15:27:00-06:00</published><updated>2020-10-02T10:45:02-06:00</updated><id>https://keer4n.github.io/2020/09/09/using-bfg-to-clean-out-unwanted-sensitive-files</id><content type="html" xml:base="https://keer4n.github.io/2020/09/09/using-bfg-to-clean-out-unwanted-sensitive-files.html"><![CDATA[<h2 id="using-bfg-to-clean-out-unwantedsensitive-files">Using BFG to clean out unwanted/sensitive files</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://keer4n.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://keer4n.github.io/" rel="alternate" type="text/html" /><updated>2022-04-10T21:11:04-06:00</updated><id>https://keer4n.github.io/feed.xml</id><title type="html">Kiran’s Personal Site</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Using BFG to clean out unwanted/sensitive files</title><link href="https://keer4n.github.io/2020/09/09/using-bfg-to-clean-out-unwanted-sensitive-files.html" rel="alternate" type="text/html" title="Using BFG to clean out unwanted/sensitive files" /><published>2020-09-09T15:27:00-06:00</published><updated>2020-10-02T10:45:02-06:00</updated><id>https://keer4n.github.io/2020/09/09/using-bfg-to-clean-out-unwanted-sensitive-files</id><content type="html" xml:base="https://keer4n.github.io/2020/09/09/using-bfg-to-clean-out-unwanted-sensitive-files.html"><![CDATA[<h2 id="using-bfg-to-clean-out-unwantedsensitive-files">Using BFG to clean out unwanted/sensitive files</h2>
 
 <p>The goal is to clean a git repository with unwanted/sensitive files. For eg. Some 
 key/password files were uploaded to the remote git repo. Then, git will preserve their
@@ -8,7 +8,7 @@ be used.</p>
 
 <p>For arch linux, you can install the tool from AUR with <code class="language-plaintext highlighter-rouge">yay</code> with:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>yay <span class="nt">-S</span> bfg
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">yay</span> <span class="nt">-S</span> <span class="nb">bfg</span>
 </code></pre></div></div>
 
 <p>First, start with deleting the unwanted files and commiting to remote as BFG won’t 
@@ -17,24 +17,24 @@ git history can be cleaned.</p>
 
 <p>Next, clone the git database (.git folder) for your repo using:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>git clone <span class="nt">--mirror</span> git@github.com:username/some-unclean-repo.git
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">git clone</span> <span class="nt">--mirror</span> <span class="nb">git</span>@github.com:username/some-unclean-repo.git
 </code></pre></div></div>
 
 <p>Now you can run BFG-specific commands to clean your repo.
 To delete a file:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>bfg <span class="nt">--delete-files</span> file_name some-unclean-repo.git
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">bfg</span> <span class="nt">--delete-files</span> file_name some-unclean-repo.git
 </code></pre></div></div>
 
 <p>To delete a folder:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>bfg <span class="nt">--delete-folders</span> folder_name some-unclean-repo.git
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">bfg</span> <span class="nt">--delete-folders</span> folder_name some-unclean-repo.git
 </code></pre></div></div>
 
 <p>Then, go into your folder and clean unwanted data using:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span><span class="nb">cd </span>some-unclean-repo.git
-    <span class="nv">$ </span>git reflog expire <span class="nt">--expire</span><span class="o">=</span>now <span class="nt">--all</span> <span class="o">&amp;&amp;</span> git gc <span class="nt">--prune</span><span class="o">=</span>now <span class="nt">--aggressive</span>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">cd </span>some-unclean-repo.git
+  <span class="nv">$ </span><span class="nb">git </span>reflog expire <span class="nt">--expire</span><span class="o">=</span>now <span class="nt">--all</span> <span class="o">&amp;&amp;</span> <span class="nb">git </span>gc <span class="nt">--prune</span><span class="o">=</span>now <span class="nt">--aggressive</span>
 </code></pre></div></div>
 
 <p>Now, you can push it to remote to have an updated clean history using <code class="language-plaintext highlighter-rouge">git push</code> and it is recommended
@@ -49,7 +49,7 @@ to reclone the repo for future use to prevent unwarranted pushing of dirty histo
 </div>]]></content><author><name></name></author><summary type="html"><![CDATA[Using BFG to clean out unwanted/sensitive files]]></summary></entry><entry><title type="html">Configuring notification daemon - dunst</title><link href="https://keer4n.github.io/2020/09/04/configuring-notification-daemon-dunst.html" rel="alternate" type="text/html" title="Configuring notification daemon - dunst" /><published>2020-09-04T15:02:00-06:00</published><updated>2020-09-07T10:56:26-06:00</updated><id>https://keer4n.github.io/2020/09/04/configuring-notification-daemon-dunst</id><content type="html" xml:base="https://keer4n.github.io/2020/09/04/configuring-notification-daemon-dunst.html"><![CDATA[<h2 id="configuring-notification-daemon---dunst">Configuring notification daemon - dunst</h2>
 
 <p>The goal is to configure <code class="language-plaintext highlighter-rouge">dunst</code> which describes itself as a lightweight notification daemon on i3-wm. You can get dunst from the community repository. Install it by:</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c">#pacman -S dunst</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">pacman</span> <span class="nt">-S</span> dunst
 </code></pre></div></div>
 <p>You should add it to the startup.</p>
 
@@ -57,7 +57,7 @@ to reclone the repo for future use to prevent unwarranted pushing of dirty histo
 
 <p>Next, a simple bash script where we will use the notification daemon to display a primitive ticking timer.</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c">#!/bin/bash</span>
-  
+    
   <span class="nv">i</span><span class="o">=</span>0
   <span class="nv">limit</span><span class="o">=</span><span class="nv">$1</span> 
   <span class="k">while </span><span class="nb">true</span><span class="p">;</span> <span class="k">do
@@ -71,7 +71,7 @@ to reclone the repo for future use to prevent unwarranted pushing of dirty histo
 </code></pre></div></div>
 <p>What this script will do is invoke <code class="language-plaintext highlighter-rouge">notify-send</code> with a <code class="language-plaintext highlighter-rouge">hint</code> value to dunst which handles this as progress value using <code class="language-plaintext highlighter-rouge">%p</code> or <code class="language-plaintext highlighter-rouge">%n</code> format specifier. To enable this, you need to change some configuration options in dunstrc file (<code class="language-plaintext highlighter-rouge">~/.config/dunst/dunstrc</code>).</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  format <span class="o">=</span> <span class="s2">"&lt;b&gt;%s %n&lt;/b&gt;</span><span class="se">\n</span><span class="s2">%b"</span>
-  
+
   stack_duplicates <span class="o">=</span> <span class="nb">yes
   </span>hide_duplicate_count <span class="o">=</span> <span class="nb">yes</span>
 </code></pre></div></div>
@@ -123,21 +123,21 @@ i3 4.18.1</p>
       <p><a href="https://i3wm.org/docs/userguide.html#assign_workspace">i3 config - assignment</a> <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
-</div>]]></content><author><name></name></author><summary type="html"><![CDATA[Configuring i3wm1 with polybar2 for named workspace i3wm &#8617; polybar &#8617;]]></summary></entry><entry><title type="html">github-cli</title><link href="https://keer4n.github.io/2020/08/16/github-cli.html" rel="alternate" type="text/html" title="github-cli" /><published>2020-08-16T08:45:00-06:00</published><updated>2020-08-26T17:20:39-06:00</updated><id>https://keer4n.github.io/2020/08/16/github-cli</id><content type="html" xml:base="https://keer4n.github.io/2020/08/16/github-cli.html"><![CDATA[<p>## github-cli<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></p>
+</div>]]></content><author><name></name></author><summary type="html"><![CDATA[Configuring i3wm1 with polybar2 for named workspace i3wm &#8617; polybar &#8617;]]></summary></entry><entry><title type="html">github-cli</title><link href="https://keer4n.github.io/2020/08/16/github-cli.html" rel="alternate" type="text/html" title="github-cli" /><published>2020-08-16T08:45:00-06:00</published><updated>2020-08-26T17:20:39-06:00</updated><id>https://keer4n.github.io/2020/08/16/github-cli</id><content type="html" xml:base="https://keer4n.github.io/2020/08/16/github-cli.html"><![CDATA[<h2 id="github-cli">github-cli<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></h2>
 
 <p>official cli from github currently under active development.</p>
 
-<p>### Setup</p>
+<h3 id="setup">Setup</h3>
 
 <ul>
   <li>install using <code class="language-plaintext highlighter-rouge">pacman -S github-cli</code></li>
 </ul>
 
 <p>To create a public repo, use:</p>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nv">$ </span>gh repo create repo_name <span class="nt">--public</span>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>gh repo create repo_name <span class="nt">--public</span>
 </code></pre></div></div>
 
-<p>### Usage</p>
+<h3 id="usage">Usage</h3>
 
 <ul>
   <li>gh pr [status, list, view, checkout, create]</li>
@@ -147,7 +147,7 @@ i3 4.18.1</p>
   <li>gh help</li>
 </ul>
 
-<p>Documentation<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup></p>
+<h3 id="documentation">Documentation<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup></h3>
 
 <div class="footnotes" role="doc-endnotes">
   <ol>
@@ -158,7 +158,7 @@ i3 4.18.1</p>
       <p><a href="https://cli.github.com/manual/">Manual</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
-</div>]]></content><author><name></name></author><summary type="html"><![CDATA[## github-cli1 official cli from github currently under active development. ### Setup install using pacman -S github-cli To create a public repo, use: $ gh repo create repo_name --public ### Usage gh pr [status, list, view, checkout, create] gh issue [status, list, view, create] gh repo [view, create, clone, fork] gh config [get, set] gh help Documentation2 Repo &#8617; Manual &#8617;]]></summary></entry><entry><title type="html">cheatsheets</title><link href="https://keer4n.github.io/2020/08/15/cheatsheets.html" rel="alternate" type="text/html" title="cheatsheets" /><published>2020-08-15T22:45:00-06:00</published><updated>2022-04-03T23:34:46-06:00</updated><id>https://keer4n.github.io/2020/08/15/cheatsheets</id><content type="html" xml:base="https://keer4n.github.io/2020/08/15/cheatsheets.html"><![CDATA[<h2 id="cheatsheet">Cheatsheet</h2>
+</div>]]></content><author><name></name></author><summary type="html"><![CDATA[github-cli1 official cli from github currently under active development. Setup install using pacman -S github-cli To create a public repo, use: $ gh repo create repo_name --public Usage gh pr [status, list, view, checkout, create] gh issue [status, list, view, create] gh repo [view, create, clone, fork] gh config [get, set] gh help Documentation2 Repo &#8617; Manual &#8617;]]></summary></entry><entry><title type="html">cheatsheets</title><link href="https://keer4n.github.io/2020/08/15/cheatsheets.html" rel="alternate" type="text/html" title="cheatsheets" /><published>2020-08-15T22:45:00-06:00</published><updated>2022-04-03T23:34:46-06:00</updated><id>https://keer4n.github.io/2020/08/15/cheatsheets</id><content type="html" xml:base="https://keer4n.github.io/2020/08/15/cheatsheets.html"><![CDATA[<h2 id="cheatsheet">Cheatsheet</h2>
 
 <h3 id="browsers">Browsers:</h3>
 <ul>
@@ -172,7 +172,7 @@ i3 4.18.1</p>
   <li>Regularly updating archlinux is recommended and updating may occasionally fail during integrity check. This is due to revoked or failed keys. You can update the keys using<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>:</li>
 </ul>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pacman <span class="nt">-Sy</span> archlinux-keyring
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">pacman</span> <span class="nt">-Sy</span> archlinux-keyring
 </code></pre></div></div>
 
 <h3 id="github">Github:</h3>
