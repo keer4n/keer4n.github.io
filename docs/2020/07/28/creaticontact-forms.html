@@ -30,7 +30,7 @@
         </form>
       </div>
        <div class="menu">
-          <ul><li><a href="/">/</a></li><li><a href="/demos">/demos</a></li><li><a href="/ref-vision">/ref-vision</a></li><li><a href="/about/">/about</a></li><li><a href="/resume">/resume</a></li><li><a href="/contact">/contact</a></li></ul>
+          <ul><li><a href="/">/</a></li><li><a href="/demos">/demos</a></li><li><a href="/ref-vision">/ref-vision</a></li><li><a href="/about/">/about</a></li><li><a href="/resume">/resume</a></li><li><a href="/contact">/contact</a></li><li><a href="/stars">/stars</a></li></ul>
        </div>
   </div>
 </header>
@@ -55,13 +55,19 @@ For a simple static sites like those created with jekyll, this type of contact f
 
 <p>A simple form as shown below can be used to get information from  a user.</p>
 
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;form&gt;</span> 
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre>  <span class="nt">&lt;form&gt;</span> 
     <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"name"</span> <span class="nt">/&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"email"</span> <span class="na">id=</span><span class="s">"email"</span> <span class="nt">/&gt;</span>
     <span class="nt">&lt;textarea</span> <span class="na">rows=</span><span class="s">"5"</span> <span class="na">id=</span><span class="s">"message"</span> <span class="nt">&gt;&lt;/textarea&gt;</span>
     <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">onclick=</span><span class="s">"mail()"</span> <span class="na">value=</span><span class="s">"[ submit ]"</span> <span class="nt">/&gt;</span>
   <span class="nt">&lt;/form&gt;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></figure>
 
 <p>This form will have fields for <em>name</em>, <em>email</em> and <em>message</em>. Special care needs to be taken with the <em>message</em> field if we are to preseve the text formatting. This is required because we will use <code class="language-plaintext highlighter-rouge">Javascript</code> for extracting the field values to create the <code class="language-plaintext highlighter-rouge">mailto</code> link and values extracted from these fields are not encoded for URLs; meaning spaces, newline characters, etc. are present which cannot be included in a URL. URL Encoding<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> can be done with the <code class="language-plaintext highlighter-rouge">encodeURIComponent()</code> function available in <code class="language-plaintext highlighter-rouge">Javascript</code>.</p>
 

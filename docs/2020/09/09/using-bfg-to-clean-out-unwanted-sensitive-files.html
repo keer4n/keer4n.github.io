@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Using BFG to clean out unwanted/sensitive files" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-10-02T10:45:02-06:00","datePublished":"2020-09-09T15:27:00-06:00","description":"Using BFG to clean out unwanted/sensitive files","headline":"Using BFG to clean out unwanted/sensitive files","mainEntityOfPage":{"@type":"WebPage","@id":"https://keer4n.github.io/2020/09/09/using-bfg-to-clean-out-unwanted-sensitive-files.html"},"url":"https://keer4n.github.io/2020/09/09/using-bfg-to-clean-out-unwanted-sensitive-files.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-04-10T21:11:17-06:00","datePublished":"2020-09-09T15:27:00-06:00","description":"Using BFG to clean out unwanted/sensitive files","headline":"Using BFG to clean out unwanted/sensitive files","mainEntityOfPage":{"@type":"WebPage","@id":"https://keer4n.github.io/2020/09/09/using-bfg-to-clean-out-unwanted-sensitive-files.html"},"url":"https://keer4n.github.io/2020/09/09/using-bfg-to-clean-out-unwanted-sensitive-files.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" type="text/css" href="/assets/main.css"></head>
 <body>
@@ -30,7 +30,7 @@
         </form>
       </div>
        <div class="menu">
-          <ul><li><a href="/">/</a></li><li><a href="/demos">/demos</a></li><li><a href="/ref-vision">/ref-vision</a></li><li><a href="/about/">/about</a></li><li><a href="/resume">/resume</a></li><li><a href="/contact">/contact</a></li></ul>
+          <ul><li><a href="/">/</a></li><li><a href="/demos">/demos</a></li><li><a href="/ref-vision">/ref-vision</a></li><li><a href="/about/">/about</a></li><li><a href="/resume">/resume</a></li><li><a href="/contact">/contact</a></li><li><a href="/stars">/stars</a></li></ul>
        </div>
   </div>
 </header>
@@ -38,7 +38,7 @@
 
 <main>
 
-      <p dir="rtl">2020-10-02</p>
+      <p dir="rtl">2022-04-10</p>
 
 <h2 id="using-bfg-to-clean-out-unwantedsensitive-files">Using BFG to clean out unwanted/sensitive files</h2>
 
@@ -50,7 +50,7 @@ be used.</p>
 
 <p>For arch linux, you can install the tool from AUR with <code class="language-plaintext highlighter-rouge">yay</code> with:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">yay</span> <span class="nt">-S</span> <span class="nb">bfg</span>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>yay <span class="nt">-S</span> bfg
 </code></pre></div></div>
 
 <p>First, start with deleting the unwanted files and commiting to remote as BFG won’t 
@@ -59,24 +59,24 @@ git history can be cleaned.</p>
 
 <p>Next, clone the git database (.git folder) for your repo using:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">git clone</span> <span class="nt">--mirror</span> <span class="nb">git</span>@github.com:username/some-unclean-repo.git
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>git clone <span class="nt">--mirror</span> git@github.com:username/some-unclean-repo.git
 </code></pre></div></div>
 
 <p>Now you can run BFG-specific commands to clean your repo.
 To delete a file:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">bfg</span> <span class="nt">--delete-files</span> file_name some-unclean-repo.git
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>bfg <span class="nt">--delete-files</span> file_name some-unclean-repo.git
 </code></pre></div></div>
 
 <p>To delete a folder:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">bfg</span> <span class="nt">--delete-folders</span> folder_name some-unclean-repo.git
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>bfg <span class="nt">--delete-folders</span> folder_name some-unclean-repo.git
 </code></pre></div></div>
 
 <p>Then, go into your folder and clean unwanted data using:</p>
 
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span><span class="nb">cd </span>some-unclean-repo.git
-  <span class="nv">$ </span><span class="nb">git </span>reflog expire <span class="nt">--expire</span><span class="o">=</span>now <span class="nt">--all</span> <span class="o">&amp;&amp;</span> <span class="nb">git </span>gc <span class="nt">--prune</span><span class="o">=</span>now <span class="nt">--aggressive</span>
+  <span class="nv">$ </span>git reflog expire <span class="nt">--expire</span><span class="o">=</span>now <span class="nt">--all</span> <span class="o">&amp;&amp;</span> git gc <span class="nt">--prune</span><span class="o">=</span>now <span class="nt">--aggressive</span>
 </code></pre></div></div>
 
 <p>Now, you can push it to remote to have an updated clean history using <code class="language-plaintext highlighter-rouge">git push</code> and it is recommended

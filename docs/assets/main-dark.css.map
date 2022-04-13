@@ -3,8 +3,8 @@
 	"file": "main-dark.css",
 	"sources": [
 		"main-dark.scss",
-		"../../../../tmp/jekyll-remote-theme-20220410-1491267-5k3esl/_sass/_dark.scss",
-		"../../../../tmp/jekyll-remote-theme-20220410-1491267-5k3esl/_sass/base.scss"
+		"../../../../tmp/jekyll-remote-theme-20220412-1589308-26bjij/_sass/_dark.scss",
+		"../../../../tmp/jekyll-remote-theme-20220412-1589308-26bjij/_sass/base.scss"
 	],
 	"sourcesContent": [
 		"@import \"dark\";\n@import \"base\";\n",

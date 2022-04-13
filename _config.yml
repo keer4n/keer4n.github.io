@@ -37,6 +37,7 @@ header_pages:
   - about.markdown
   - resume.md
   - contact.md
+  - stars.md
 
 
 style: dark # dark (default), light or hacker

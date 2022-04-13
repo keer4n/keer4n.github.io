@@ -21,14 +21,14 @@ For a simple static sites like those created with jekyll, this type of contact f
 
 A simple form as shown below can be used to get information from  a user.
 
-```html
+{% highlight html linenos %}
   <form> 
     <input type="text" id="name" />
     <input type="email" id="email" />
     <textarea rows="5" id="message" ></textarea>
     <input type="submit" onclick="mail()" value="[ submit ]" />
   </form>
-```
+{% endhighlight %}
 
 This form will have fields for *name*, *email* and *message*. Special care needs to be taken with the *message* field if we are to preseve the text formatting. This is required because we will use `Javascript` for extracting the field values to create the `mailto` link and values extracted from these fields are not encoded for URLs; meaning spaces, newline characters, etc. are present which cannot be included in a URL. URL Encoding[^1] can be done with the `encodeURIComponent()` function available in `Javascript`.
 
