@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title></title><!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Kiran’s Personal Site" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="https://keer4n.github.io/search.html" />
+<meta property="og:url" content="https://keer4n.github.io/search.html" />
+<meta property="og:site_name" content="Kiran’s Personal Site" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Kiran’s Personal Site" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","dateModified":"2022-07-13T02:19:30+00:00","description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"Kiran’s Personal Site","url":"https://keer4n.github.io/search.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" type="text/css" href="/assets/main.css"></head>
+<body>
+    <div class="container"><header>
+  <div class = "float-container">
+      <div class = "menu" style="flex-grow:1">
+        <form class = "search-bar" action="/search.html" method="get">
+         <input type="text" id="search-box" name="query" placeholder="search">
+         <input type="submit" value="" style="width:0%; float:left" tabindex="-1">
+        </form>
+      </div>
+       <div class="menu">
+          <ul><li><a href="/">/</a></li><li><a href="/demos">/demos</a></li><li><a href="/ref-vision">/ref-vision</a></li><li><a href="/about/">/about</a></li><li><a href="/resume">/resume</a></li><li><a href="/contact">/contact</a></li><li><a href="/stars">/stars</a></li></ul>
+       </div>
+  </div>
+</header>
+
+
+<main>
+
+      <ul id="search-results"></ul>
+
+<script>
+  window.store = {
+    
+      "2020-09-09-using-bfg-to-clean-out-unwanted-sensitive-files-html": {
+        "title": "Using BFG to clean out unwanted/sensitive files",
+        "author": "",
+        "category": "",
+        "content": "Using BFG to clean out unwanted/sensitive filesThe goal is to clean a git repository with unwanted/sensitive files. For eg. Some key/password files were uploaded to the remote git repo. Then, git will preserve theirhistory regardless of if you delete it later (that’s what git is for). To completely eradicate it from your git history quickly and painlessly, BFG repo-cleaner1 canbe used.For arch linux, you can install the tool from AUR with yay with:  $ yay -S bfgFirst, start with deleting the unwanted files and commiting to remote as BFG won’t modify your latest commit to delete those files. Once the files are deleted, the git history can be cleaned.Next, clone the git database (.git folder) for your repo using:  $ git clone --mirror git@github.com:username/some-unclean-repo.gitNow you can run BFG-specific commands to clean your repo.To delete a file:  $ bfg --delete-files file_name some-unclean-repo.gitTo delete a folder:  $ bfg --delete-folders folder_name some-unclean-repo.gitThen, go into your folder and clean unwanted data using:  $ cd some-unclean-repo.git  $ git reflog expire --expire=now --all &amp;&amp; git gc --prune=now --aggressiveNow, you can push it to remote to have an updated clean history using git push and it is recommendedto reclone the repo for future use to prevent unwarranted pushing of dirty history.            BFG Repo-Cleaner &#8617;      ",
+        "url": "/2020/09/09/using-bfg-to-clean-out-unwanted-sensitive-files.html"
+      }
+      ,
+    
+      "2020-09-04-configuring-notification-daemon-dunst-html": {
+        "title": "Configuring notification daemon - dunst",
+        "author": "",
+        "category": "",
+        "content": "Configuring notification daemon - dunstThe goal is to configure dunst which describes itself as a lightweight notification daemon on i3-wm. You can get dunst from the community repository. Install it by:  $ pacman -S dunstYou should add it to the startup.For i3 you can add exec_always dunst to you config file (~/.config/i3/config).Next, a simple bash script where we will use the notification daemon to display a primitive ticking timer.  #!/bin/bash      i=0  limit=$1   while true; do    notify-send -h int:value:$i Timer    sleep 1    i=$[$i+1]    if [ $i -eq $time ]; then      exit    fi  doneWhat this script will do is invoke notify-send with a hint value to dunst which handles this as progress value using %p or %n format specifier. To enable this, you need to change some configuration options in dunstrc file (~/.config/dunst/dunstrc).  format = \"&lt;b&gt;%s %n&lt;/b&gt;\\n%b\"  stack_duplicates = yes  hide_duplicate_count = yesRefs:  Dunst project home  Way to display a countdown in a terminal",
+        "url": "/2020/09/04/configuring-notification-daemon-dunst.html"
+      }
+      ,
+    
+      "2020-08-26-configuring-i3-with-polybar-for-named-workspace-html": {
+        "title": "Configuring i3 with polybar for named workspace",
+        "author": "",
+        "category": "",
+        "content": "Configuring i3wm1 with polybar2 for named workspaceNaming workspaces in i3wm helps when you have too many open applications everywhere. Polybar, which is one of the popular status bars for i3wm, does not display the name of the workspace by default.The goal is to configure polybar to properly display names of workspaces which are defined in i3 configuration files.Environment:Polybar 3.4.3i3 4.18.1i3 userguide3 says that workspaces can be named by having following configuration. Configuration file for i3 is generally located at ~/.config/i3/config    bindsym $mod+1 workspace 1: name_of_workspace_1    bindsym $mod+2 workspace 2: name_of_workspace_2However, doing so will not be reflected to polybar by default. To view workspace name in the bar, further configuration of polybar module for i3 is required, which can be found at ~/.config/polybar/modules.ini.    [module/i3]    label-focused = %index% %name% Basically, the %name% placeholder which is mapped to the workspace name should be added to label-* variable which only has %index% fixing our problem.These workspaces can be further organized using assignments4 to force certain applications to be opened in specific workspace.            i3wm &#8617;              polybar &#8617;              i3 userguide &#8617;              i3 config - assignment &#8617;      ",
+        "url": "/2020/08/26/configuring-i3-with-polybar-for-named-workspace.html"
+      }
+      ,
+    
+      "2020-08-16-github-cli-html": {
+        "title": "github-cli",
+        "author": "",
+        "category": "",
+        "content": "github-cli1official cli from github currently under active development.Setup  install using pacman -S github-cliTo create a public repo, use:  $ gh repo create repo_name --publicUsage  gh pr [status, list, view, checkout, create]  gh issue [status, list, view, create]  gh repo [view, create, clone, fork]  gh config [get, set]  gh helpDocumentation2            Repo &#8617;              Manual &#8617;      ",
+        "url": "/2020/08/16/github-cli.html"
+      }
+      ,
+    
+      "2020-08-16-cheatsheets-html": {
+        "title": "cheatsheets",
+        "author": "",
+        "category": "",
+        "content": "CheatsheetBrowsers:  Next Tab -&gt; Ctrl + Tab  Previous Tab -&gt; Ctrl + Shift + TabLinux:  Power supply, battery status -&gt; /sys/class/power_supply/BAT0/  Regularly updating archlinux is recommended and updating may occasionally fail during integrity check. This is due to revoked or failed keys. You can update the keys using1:  $ pacman -Sy archlinux-keyringGithub:  To get the permalink for a commit/file on github, press y2.VS Code:  zenmode: Ctrl + K,Z or  Cmd + K,Z            pacman/Package signing - ArchWiki &#8617;              Getting permanent links to files - GitHub Docs &#8617;      ",
+        "url": "/2020/08/16/cheatsheets.html"
+      }
+      ,
+    
+      "2020-07-30-vim-reminders-html": {
+        "title": "Vim reminders",
+        "author": "",
+        "category": "",
+        "content": "Vim remindersSome vim tricks/tips that I keep forgetting:      Deleting between tags1:    dat for deleting a tag and its inner htmldit for deleting the inner html only        File name auto completion2:    C-x C-f to access a scrollable list of files in current directory. Use C-n for next and C-f for previous to scroll the list.        Deleting blocks of text inside parenthesis3 (see help text-objects):    dab for deleting a block of text. eg. (…..)dib for deleting inner block of text.        Writing files with sudo when forgot to start with sudo:    :w !sudo tee %                  Vim 101: Efficient HTML Editing with Text Objects &#8617;              Code Yarns - How to autocomplete path in Vim insert mode &#8617;              Stack Overflow &#8617;      ",
+        "url": "/2020/07/30/vim-reminders.html"
+      }
+      ,
+    
+      "2020-07-30-jekyll-compose-html": {
+        "title": "jekyll-compose",
+        "author": "",
+        "category": "",
+        "content": "Jekyll::Compose1There exists a gem for jekyll called jekyll-compose which lets you create posts and publish them quickly without having to create the posts by hand.To use this gem, add the following line to your Gemfile.  gem 'jekyll-compose', group: [:jekyll_plugins]Then, you can easily create new posts using:  $ bundle exec jekyll post \"my post\"By default, this will only create the markdown document for the post. To enable auto opening of the file in your editor, add the following section to your jekyll config file (_config.yml).  jekyll_compose:      auto_open: true            jekyll-compose &#8617;      ",
+        "url": "/2020/07/30/jekyll-compose.html"
+      }
+      ,
+    
+      "2020-07-29-creaticontact-forms-html": {
+        "title": "Contact forms",
+        "author": "",
+        "category": "",
+        "content": "Creating Contact forms for static pagesThe goal is to create a contact form for a static page which upon submission will invoke the default email client with contents populated.This can be accomplish using Javascript and the mailto hyperlinks.mailto link allows emails to be sent via default email client of the user. A basic mailto link is shown below.  &lt;a href=\"mailto:me@mysite.com\"&gt; Email me &lt;/a&gt;On clicking the link, a user’s default email client is invoked with to-address populated.Furthermore, since it is a link, parameters can be attached to specify other components of an email like subject, body, cc, bcc, etc. For a simple static sites like those created with jekyll, this type of contact forms can be used.A simple form as shown below can be used to get information from  a user.123456  &lt;form&gt;     &lt;input type=\"text\" id=\"name\" /&gt;    &lt;input type=\"email\" id=\"email\" /&gt;    &lt;textarea rows=\"5\" id=\"message\" &gt;&lt;/textarea&gt;    &lt;input type=\"submit\" onclick=\"mail()\" value=\"[ submit ]\" /&gt;  &lt;/form&gt;This form will have fields for name, email and message. Special care needs to be taken with the message field if we are to preseve the text formatting. This is required because we will use Javascript for extracting the field values to create the mailto link and values extracted from these fields are not encoded for URLs; meaning spaces, newline characters, etc. are present which cannot be included in a URL. URL Encoding1 can be done with the encodeURIComponent() function available in Javascript.Following is a Javascript function that can be called for the onclick attribute of the submit button for previous form.  function mail() {    var email = document.createElement(\"a\");    email.href = \"mailto:me@mysite.com?subject=\"       + document.getElementById(\"name\").value       + \"(\" + document.getElementById(\"email\").value + \")\"      + \"&amp;body=\"      + encodeURIComponent(document.getElementById(\"message\").value);     email.click();  }Here, first an anchor (link) element is created, then its href attribute is set to a mailto link with specified to-address, subject &amp; body parameters extracted from the form (notice the call to encodeURIComponent for the message body) and finally click event is simulated for the element.This concludes the writeup. The contact form for this site is created using the same methods which can be viewed in github or by inspecting the contact page source.            HTML URL Encoding Reference &#8617;      ",
+        "url": "/2020/07/29/creaticontact-forms.html"
+      }
+      ,
+    
+      "2020-07-15-java-basics-html": {
+        "title": "Java Basics",
+        "author": "",
+        "category": "",
+        "content": "  Basics  Three types of variables:          Class variables/Static variables - available via class, without the need to create on object      Instance variables - variables denoting the state of class      Local variable - variables inside the methods            Access modifiers/specifiers:                                       Class          Package          Subclass (same pkg)          Subclass (diff pkg)          World                                      public          +          +          +          +          +                          protected          +          +          +          +                                     no modifier (default)          +          +          +                                                private          +                                                                  StringBuffer are thread-safe version of StringBuilder.  String literals live in string constant pool whereas string objects live in heap.  AWS VPC allows you to configure/setup a networking environment among different EC2 instances. Limited to a region but can be multi-AZ.",
+        "url": "/2020/07/15/java-basics.html"
+      }
+      ,
+    
+      "2019-11-14-links-html": {
+        "title": "Links",
+        "author": "",
+        "category": "",
+        "content": "LinksAssortment of links:cryptography  Awesome Crypto Papers great papers on cryptography.  Awesome Cryptography another cryptography collection.haskell  exercises &amp; lessons    python    python tipsbooks  interactive programming bookssecurity  Awesome Security  Awesome Hacking  noobsec  OWASP Cheatsheet Seriesdatabases  Use the index lukeblogs  Neil Kakkar  Gwern  The Grug Brained Developer  short, written in broken english (keeps your attention)else  Learn X in Y minutes  How to store dot files",
+        "url": "/2019/11/14/links.html"
+      }
+      
+    
+  };
+</script>
+<script src="/assets/js/lunr.min.js"></script>
+<script src="/assets/js/search.js"></script>
+
+
+    </main><footer>
+    <div class="float-container">
+        <div class = "float-child" style="text-align:left">
+            <a href="https://github.com/keer4n/">~</a>
+        </div>
+        <div class = "float-child">
+            Made with <a href="https://github.com/keer4n/jekyll-theme-console">console</a> theme.
+        </div>
+</footer>
+<script>
+  document.querySelectorAll('pre.highlight code').forEach(el => {
+    el.addEventListener('click', (e) => {
+        navigator.clipboard.writeText(e.target.innerText);
+        e.target.classList.add('copied');
+        setTimeout(() => {e.target.classList.remove('copied')}, 500);
+    });
+  });
+</script>
+</div>
+  </body>
+</html>

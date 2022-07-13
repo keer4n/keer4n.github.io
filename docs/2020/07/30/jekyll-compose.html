@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>jekyll-compose</title><!-- Begin Jekyll SEO tag v2.8.0 -->
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="jekyll-compose" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Jekyll::Compose1 jekyll-compose &#8617;" />
+<meta property="og:description" content="Jekyll::Compose1 jekyll-compose &#8617;" />
+<link rel="canonical" href="https://keer4n.github.io/2020/07/30/jekyll-compose.html" />
+<meta property="og:url" content="https://keer4n.github.io/2020/07/30/jekyll-compose.html" />
+<meta property="og:site_name" content="Kiran’s Personal Site" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-30T02:47:00-06:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="jekyll-compose" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2020-07-30T03:34:41-06:00","datePublished":"2020-07-30T02:47:00-06:00","description":"Jekyll::Compose1 jekyll-compose &#8617;","headline":"jekyll-compose","mainEntityOfPage":{"@type":"WebPage","@id":"https://keer4n.github.io/2020/07/30/jekyll-compose.html"},"url":"https://keer4n.github.io/2020/07/30/jekyll-compose.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" type="text/css" href="/assets/main.css"></head>
+<body>
+    <div class="container"><header>
+  <div class = "float-container">
+      <div class = "menu" style="flex-grow:1">
+        <form class = "search-bar" action="/search.html" method="get">
+         <input type="text" id="search-box" name="query" placeholder="search">
+         <input type="submit" value="" style="width:0%; float:left" tabindex="-1">
+        </form>
+      </div>
+       <div class="menu">
+          <ul><li><a href="/">/</a></li><li><a href="/demos">/demos</a></li><li><a href="/ref-vision">/ref-vision</a></li><li><a href="/about/">/about</a></li><li><a href="/resume">/resume</a></li><li><a href="/contact">/contact</a></li><li><a href="/stars">/stars</a></li></ul>
+       </div>
+  </div>
+</header>
+
+
+<main>
+
+      <p dir="rtl">2020-07-30</p>
+
+<h2 id="jekyllcompose">Jekyll::Compose<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup></h2>
+
+<p>There exists a gem for jekyll called <code class="language-plaintext highlighter-rouge">jekyll-compose</code> which lets you create posts and publish them quickly without having to create the posts by hand.</p>
+
+<p>To use this gem, add the following line to your <code class="language-plaintext highlighter-rouge">Gemfile</code>.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="s">gem 'jekyll-compose', group</span><span class="err">:</span> <span class="pi">[:</span><span class="nv">jekyll_plugins</span><span class="pi">]</span>
+</code></pre></div></div>
+<p>Then, you can easily create new posts using:</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>bundle <span class="nb">exec </span>jekyll post <span class="s2">"my post"</span>
+</code></pre></div></div>
+<p>By default, this will only create the markdown document for the post. To enable auto opening of the file in your editor, add the following section to your jekyll config file (<code class="language-plaintext highlighter-rouge">_config.yml</code>).</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">jekyll_compose</span><span class="pi">:</span>
+      <span class="na">auto_open</span><span class="pi">:</span> <span class="no">true</span>
+</code></pre></div></div>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://github.com/jekyll/jekyll-compose">jekyll-compose</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+
+    </main><footer>
+    <div class="float-container">
+        <div class = "float-child" style="text-align:left">
+            <a href="https://github.com/keer4n/">~</a>
+        </div>
+        <div class = "float-child">
+            Made with <a href="https://github.com/keer4n/jekyll-theme-console">console</a> theme.
+        </div>
+</footer>
+<script>
+  document.querySelectorAll('pre.highlight code').forEach(el => {
+    el.addEventListener('click', (e) => {
+        navigator.clipboard.writeText(e.target.innerText);
+        e.target.classList.add('copied');
+        setTimeout(() => {e.target.classList.remove('copied')}, 500);
+    });
+  });
+</script>
+</div>
+  </body>
+</html>
