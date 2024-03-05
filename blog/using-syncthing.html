@@ -6,15 +6,15 @@
 <title>Using Syncthing</title>
 <meta name="generator" content="Org Mode" />
 
+<link rel="icon" type="image/x-icon" href="/img/favicon.png" />
 <link rel="stylesheet" href="/css/htmlize.css" />
 <link rel="stylesheet" href="/css/main.css" />
-<link rel="stylesheet" href="/css/main-light.css" />
 <link rel="stylesheet" href="/css/style.css" />
 <script src="/js/index.js" defer></script>
 </head>
 <body>
 <div id="preamble" class="status">
-<nav class="menu"><ul><li>keer4n</li> <li><a href="/">/</a></li> <li><a href="/demos">/demos</a></li> <li><a href="/links.html">/links</a></li></ul></nav><div id="updated"> Updated: 2024-01-05 Fri 06:59</div>
+<nav class="menu"><ul><li><a href="/about.html">keer4n</a></li> <li><a href="/">/</a></li> <li><a href="/demos">/demos</a></li> <li><a href="/links.html">/links</a></li></ul></nav><div id="updated"> Updated: 2024-03-05 Tue 01:38</div>
 </div>
 <div id="content" class="content">
 <header>
@@ -52,14 +52,11 @@ logs can be read from:
 tail -f /usr/local/var/log/syncthing.log
 </p>
 
-<p>
-#+being<sub>src</sub> sh
-</p>
-
-<p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">find if a syncthing process is up</span>
 pgrep syncthing
-#+end<sub>src</sub>
-</p>
+</pre>
+</div>
 
 <p>
 If it is kill it.
